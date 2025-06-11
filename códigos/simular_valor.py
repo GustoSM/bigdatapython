@@ -1,9 +1,9 @@
 import pandas as pd
 
-# Caminho do arquivo Excel existente
+# Caminho do arquivo Excel
 arquivo_excel = "vendas_midias_ml.xlsx"
 
-# Lê a aba original do arquivo Excel
+# Lê a aba original
 df = pd.read_excel(arquivo_excel, sheet_name="Original", parse_dates=["DataVenda"])
 
 # Garante que a coluna AnoMes existe
@@ -21,7 +21,7 @@ vendas_mensais = (
     .sort_values(["AnoMes", "TipoMidia"])
 )
 
-# Calcula o total de vendas por mês (independente do produto)
+# Calcula o total de vendas por mês
 totais_mes = (
     df.groupby("AnoMes")["ValorTotalPedido"].sum().rename("ValorTotalPedidos_Mes").reset_index()
 )
@@ -29,8 +29,6 @@ totais_mes = (
 # Adiciona a coluna do valor total do mês para todas as linhas do DataFrame de vendas mensais
 vendas_mensais = vendas_mensais.merge(totais_mes, on="AnoMes")
 
-# Salva em uma nova aba no mesmo arquivo Excel
+# Salva em uma nova aba
 with pd.ExcelWriter(arquivo_excel, engine="openpyxl", mode="a", if_sheet_exists="replace") as writer:
     vendas_mensais.to_excel(writer, index=False, sheet_name="Vendas_Mensais_Produto")
-
-print(f"Relatório de vendas mensais por produto, sem ValorTotalPedidos, salvo em 'Vendas_Mensais_Produto' no arquivo '{arquivo_excel}'.")
