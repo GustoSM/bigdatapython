@@ -34,7 +34,7 @@ Apoiar a gestão de pequenos negócios, proporcionando ferramentas para análise
 ## Link do Projeto
 
 Acesse o repositório completo:  
-[https://github.com/GustoSM/bigdatapython] (https://github.com/GustoSM/bigdatapython)
+[https://github.com/GustoSM/bigdatapython]
 
 ---
 
